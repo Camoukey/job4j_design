@@ -69,7 +69,7 @@ public class FlatMapTest {
                 List.of().iterator(),
                 List.of(1).iterator()
         ).iterator();
-        FlatMap flat = new FlatMap(it);
+        FlatMap<?> flat = new FlatMap(it);
         assertTrue(flat.hasNext());
         assertThat(1, is(flat.next()));
     }
@@ -82,7 +82,7 @@ public class FlatMapTest {
                 List.of().iterator(),
                 List.of().iterator()
         ).iterator();
-        FlatMap flat = new FlatMap(it);
+        FlatMap<?> flat = new FlatMap(it);
         assertFalse(flat.hasNext());
     }
 }
