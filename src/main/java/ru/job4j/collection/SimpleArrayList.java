@@ -16,6 +16,10 @@ public class SimpleArrayList<T> implements List<T> {
         this.container = new Object[capacity];
     }
 
+    public SimpleArrayList() {
+        this.container = new Object[10];
+    }
+
     @Override
     public void add(T value) {
         if (size == container.length) {
