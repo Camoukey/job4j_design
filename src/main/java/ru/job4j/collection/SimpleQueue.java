@@ -13,7 +13,7 @@ public class SimpleQueue<T> {
             throw new NoSuchElementException();
         }
         if (sizeOut == 0) {
-            while (sizeIn != 0) {
+            while (sizeIn > 0) {
                 out.push(in.pop());
                 sizeOut++;
                 sizeIn--;
