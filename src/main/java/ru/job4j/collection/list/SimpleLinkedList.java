@@ -12,7 +12,7 @@ public class SimpleLinkedList<E> implements List<E> {
     @Override
     public void add(E value) {
         Node<E> last = this.last;
-        Node<E> newNode = new Node<E>(last, value, null);
+        Node<E> newNode = new Node<>(value);
         this.last = newNode;
         if (last == null) {
             first = newNode;
@@ -64,14 +64,11 @@ public class SimpleLinkedList<E> implements List<E> {
     }
 
     private static class Node<E> {
-        E item;
-        Node<E> next;
-        Node<E> prev;
+        private E item;
+        private Node<E> next;
 
-        Node(Node<E> prev, E element, Node<E> next) {
+        Node(E element) {
             this.item = element;
-            this.next = next;
-            this.prev = prev;
         }
     }
 }
