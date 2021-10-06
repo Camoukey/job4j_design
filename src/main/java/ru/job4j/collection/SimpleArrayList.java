@@ -20,10 +20,14 @@ public class SimpleArrayList<T> implements List<T> {
         this.container = new Object[10];
     }
 
+    private void increaseSize() {
+        container = Arrays.copyOf(container, container.length * 2);
+    }
+
     @Override
     public void add(T value) {
         if (size == container.length) {
-            container = Arrays.copyOf(container, container.length * 2);
+            increaseSize();
         }
         container[size++] = value;
         modCount++;
@@ -50,7 +54,7 @@ public class SimpleArrayList<T> implements List<T> {
 
     @Override
     public T get(int index) {
-        Objects.checkIndex(index, container.length);
+        Objects.checkIndex(index, size);
         return (T) container[index];
     }
 
@@ -61,7 +65,7 @@ public class SimpleArrayList<T> implements List<T> {
 
     @Override
     public Iterator<T> iterator() {
-        return new Iterator<T>() {
+        return new Iterator<>() {
             int index;
             int expectedModCount = modCount;
 
