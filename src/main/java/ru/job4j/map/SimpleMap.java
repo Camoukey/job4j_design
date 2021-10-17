@@ -11,7 +11,7 @@ public class SimpleMap<K, V> implements Map<K, V> {
 
     private int capacity = 8;
 
-    private int count = 0;
+    private float count = 0F;
 
     private int modCount = 0;
 
@@ -19,7 +19,7 @@ public class SimpleMap<K, V> implements Map<K, V> {
 
     @Override
     public boolean put(K key, V value) {
-        if ((float) count / capacity >= LOAD_FACTOR) {
+        if (count / capacity >= LOAD_FACTOR) {
             expand();
         }
         int hash = hash(key.hashCode());
