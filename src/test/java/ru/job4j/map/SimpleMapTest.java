@@ -23,7 +23,7 @@ public class SimpleMapTest {
         Map<String, Integer> map = new SimpleMap<>();
         assertTrue(map.put("key1", 1));
         assertTrue(map.put("key2", 2));
-        assertTrue(map.put("key2", 2));
+        assertFalse(map.put("key2", 2));
     }
 
     @Test
