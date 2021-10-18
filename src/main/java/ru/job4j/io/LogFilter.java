@@ -12,7 +12,7 @@ public class LogFilter {
             reader.lines().forEach(line -> {
                 String[] col = line.split("\\s+");
                 for (String s : col) {
-                    if (s.equals("404")) {
+                    if ("404".equals(s)) {
                         result.add(line);
                     }
                 }
