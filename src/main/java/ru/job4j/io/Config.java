@@ -54,10 +54,3 @@ public class Config {
     }
 
 }
-
-/*
-* forEach(line -> {
-                String[] tmp = line.split("=");
-                values.put(tmp[0], tmp[1]);
-            });
-* */
