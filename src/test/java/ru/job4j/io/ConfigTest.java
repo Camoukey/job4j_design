@@ -32,4 +32,12 @@ public class ConfigTest {
         config.load();
         config.value("it's_key");
     }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void whenPairWithMissprint() {
+        String path = "./data/pair_with_misprint.properties";
+        Config config = new Config(path);
+        config.load();
+        config.value("key");
+    }
 }

@@ -12,7 +12,7 @@ public class Config {
 
     private final String path;
     private final Map<String, String> values = new HashMap<>();
-    private final static Pattern CORRECT_LINE = Pattern.compile("^(\\S+)=(\\S+)$");
+    private final static Pattern CORRECT_LINE = Pattern.compile("^[^=\\s]+=[^=\\s]+$");
 
     public Config(final String path) {
         this.path = path;
