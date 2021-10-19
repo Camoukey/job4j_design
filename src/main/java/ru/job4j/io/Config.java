@@ -33,7 +33,7 @@ public class Config {
 
     public String value(String key) {
         if (!values.containsKey(key)) {
-            throw new IllegalArgumentException("Неверный ключ, или значение.");
+            throw new IllegalArgumentException("Неверный ключ.");
         }
         return values.get(key);
     }
