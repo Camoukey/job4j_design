@@ -7,6 +7,13 @@ import java.nio.file.Path;
 public class DuplicatesFinder {
 
     public static void main(String[] args) throws IOException {
-        Files.walkFileTree(Path.of("./"), new DuplicatesVisitor());
+        var visitor = new DuplicatesVisitor();
+        Files.walkFileTree(Path.of("./"), visitor);
+        visitor.getAllFiles().forEach((fileProperty, paths) -> {
+            if (paths.size() > 1) {
+                System.out.print(fileProperty + " - ");
+                paths.forEach(System.out::println);
+            }
+        });
     }
 }
