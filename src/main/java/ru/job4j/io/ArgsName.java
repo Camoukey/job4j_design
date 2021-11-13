@@ -9,11 +9,11 @@ import java.util.regex.Pattern;
 public class ArgsName {
 
     private final Map<String, String> values = new HashMap<>();
-    private final static Pattern ARGS_KEY = Pattern.compile("^-([^=\\s]+)=([^=\\s]+)$");
+    private static final Pattern ARGS_KEY = Pattern.compile("^-([^=\\s]+)=([^=\\s]+)$");
 
     public String get(String key) {
         if (!values.containsKey(key)) {
-            throw new IllegalArgumentException("Invalid key");
+            throw new IllegalArgumentException("Key " + key + " not found");
         }
         return values.get(key);
     }
