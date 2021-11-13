@@ -4,22 +4,22 @@ import java.io.*;
 import java.util.*;
 
 public class CSVReader {
-    private static final Map<String, String> arguments = new HashMap<>();
+    private static final Map<String, String> ARGUMENTS = new HashMap<>();
 
     public static void handle(ArgsName argsName) throws IllegalArgumentException, FileNotFoundException {
         validate(argsName);
-        String[] filters = arguments.get(Params.FILTER.getCode()).split(",");
+        String[] filters = ARGUMENTS.get(Params.FILTER.getCode()).split(",");
         List<Integer> index = new ArrayList<>();
-        try (Scanner scanner = new Scanner(new FileInputStream(arguments.get(Params.PATH.getCode())));
-            PrintStream stream = "stdout".equals(arguments.get(Params.OUT.getCode())) ? System.out
-                    : new PrintStream(new FileOutputStream(arguments.get(Params.OUT.getCode()), true))) {
+        try (Scanner scanner = new Scanner(new FileInputStream(ARGUMENTS.get(Params.PATH.getCode())));
+             PrintStream stream = "stdout".equals(ARGUMENTS.get(Params.OUT.getCode())) ? System.out
+                    : new PrintStream(new FileOutputStream(ARGUMENTS.get(Params.OUT.getCode()), true))) {
             while (scanner.hasNextLine()) {
                 String string = scanner.nextLine();
-                String[] array = string.split(arguments.get(Params.DELIMITER.getCode()));
+                String[] array = string.split(ARGUMENTS.get(Params.DELIMITER.getCode()));
                 if (index.isEmpty()) {
                     index = filterIndex(array, filters);
                 }
-                String resultString = filter(array, index, arguments.get(Params.DELIMITER.getCode()));
+                String resultString = filter(array, index, ARGUMENTS.get(Params.DELIMITER.getCode()));
                 stream.print(resultString);
             }
         }
@@ -32,7 +32,7 @@ public class CSVReader {
             if (argument.isEmpty()) {
                 throw new IllegalArgumentException(paramName + " key argument is invalid");
             }
-            arguments.put(paramName, argument);
+            ARGUMENTS.put(paramName, argument);
         }
     }
 
@@ -68,6 +68,8 @@ public class CSVReader {
         Params(String code) {
             this.code = code;
         }
-        public String getCode(){ return code;}
+        public String getCode() {
+            return code;
+        }
     }
 }
