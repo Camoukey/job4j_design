@@ -27,28 +27,29 @@ public class ConsoleChat {
 
     public void run() {
         var rand = new Random();
-        var input = new Scanner(System.in);
         var dialog = new StringBuilder();
-        while (!state.equals(OUT)) {
-            System.out.print("Ваша фраза: ");
-            var question = input.nextLine();
-            dialog.append(String.format("Пользователь: %s%n", question));
-            switch (question) {
-                case OUT:
-                    state = OUT;
-                    break;
-                case STOP:
-                    state = STOP;
-                    break;
-                case CONTINUE:
-                    state = CONTINUE;
-                    break;
-                default:
-            }
-            if (state.equals(CONTINUE)) {
-                var answer = getBotAnswer(rand);
-                System.out.printf("Бот: %s%n", answer);
-                dialog.append(String.format("Бот: %s%n", answer));
+        var answer = getBotAnswer(rand);
+        try (var input = new Scanner(System.in)) {
+            while (!state.equals(OUT)) {
+                System.out.print("Ваша фраза: ");
+                var question = input.nextLine();
+                dialog.append(String.format("Пользователь: %s%n", question));
+                switch (question) {
+                    case OUT:
+                        state = OUT;
+                        break;
+                    case STOP:
+                        state = STOP;
+                        break;
+                    case CONTINUE:
+                        state = CONTINUE;
+                        break;
+                    default:
+                }
+                if (state.equals(CONTINUE)) {
+                    System.out.printf("Бот: %s%n", answer);
+                    dialog.append(String.format("Бот: %s%n", answer));
+                }
             }
         }
         writeToLog(dialog.toString());
@@ -64,13 +65,11 @@ public class ConsoleChat {
     }
 
     private String getBotAnswer(Random rand) {
-        if (answers.isEmpty()) {
-            try (var in = new BufferedReader(
-                    new FileReader(answersPath, StandardCharsets.UTF_8))) {
-                in.lines().forEach(answers::add);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
+        try (var in = new BufferedReader(
+                new FileReader(answersPath, StandardCharsets.UTF_8))) {
+            in.lines().forEach(answers::add);
+        } catch (Exception e) {
+            e.printStackTrace();
         }
         return answers.get(rand.nextInt(answers.size()));
     }
