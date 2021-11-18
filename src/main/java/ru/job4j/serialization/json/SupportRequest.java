@@ -2,15 +2,17 @@ package ru.job4j.serialization.json;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class SupportRequest {
-    boolean completed = false;
-    int totalCost;
-    String address;
-    Agent executor;
-    ArrayList<String> completedWorks = new ArrayList<>();
+    private boolean completed = false;
+    private int totalCost;
+    private String address;
+    private Agent executor;
+    private ArrayList<String> completedWorks = new ArrayList<>();
 
     public SupportRequest(String address) {
         this.address = address;
@@ -25,6 +27,22 @@ public class SupportRequest {
                 + ", executor=" + executor
                 + ", completedWorks=" + completedWorks
                 + '}';
+    }
+
+    public boolean isCompleted() {
+        return completed;
+    }
+
+    public int getTotalCost() {
+        return totalCost;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public List<String> getCompletedWorks() {
+        return completedWorks;
     }
 
     public void addCompletedWork(String completedWork) {
@@ -66,29 +84,29 @@ public class SupportRequest {
                         + "\"position\":\"старший техник\""
                     + "},"
                     + "\"completed\":false,"
-                    + "\"totalCost\":0,"
+                    + "\"totalCost\":250,"
                     + "\"completedWorks\":"
-                    + "[]"
+                    + "[\"Обжим коннектора\",\"Настройка роутера\"]"
                     + "}";
         request = gson.fromJson(customRequest, SupportRequest.class);
         System.out.println(request);
-    }
-}
 
-class Agent {
-    private String name;
-    private String position;
+        /*Создаем JSONObject для класса SupportRequest*/
+        JSONObject jsonRequest = new JSONObject();
+        /*Создаем JSONObject для класса Agent*/
+        JSONObject jsonAgent = new JSONObject();
 
-    public Agent(String name, String position) {
-        this.name = name;
-        this.position = position;
-    }
+        /*Добавляем поля в json объект*/
+        jsonAgent.put("name", agent.getName());
+        jsonAgent.put("position", agent.getPosition());
+        jsonRequest.put("completed", request.isCompleted());
+        jsonRequest.put("totalCost", request.getTotalCost());
+        jsonRequest.put("address", request.getAddress());
+        jsonRequest.put("executor", jsonAgent);
+        jsonRequest.put("completedWorks", request.getCompletedWorks());
 
-    @Override
-    public String toString() {
-        return "Agent{"
-                + "name='" + name + '\''
-                + ", position='" + position + '\''
-                + '}';
+        /*Конвертируем JSONObject в json-строку*/
+        String requestJsonString = jsonRequest.toString();
+        System.out.println(requestJsonString);
     }
 }
