@@ -21,7 +21,7 @@ public class FileFinder extends SimpleFileVisitor<Path> {
                 new ParameterBuilder()
                         .setName(Params.DIRECTORY.getCode())
                         .addParameterValidation("directory",
-                                Pattern.compile("^([a-zA-Z]:\\\\)([^<>:.#\"/\\\\|?*]+((\\\\)(?=[^<>:.#\"/\\\\|?*]))?)*$")
+                                Pattern.compile("^([a-zA-Z]:[\\\\|/])([^<>:.#\"/\\\\|?*]+([\\\\|/](?=[^<>:.#\"/\\\\|?*]))?)*$")
                                         .asPredicate())
                         .setPrompt("Invalid directory. The path must only contain the characters a-zA-Z0-9_-.")
                         .build(),
